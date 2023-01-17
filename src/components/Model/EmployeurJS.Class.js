@@ -1,0 +1,65 @@
+export default class Employeur{
+            siret;
+            effectif;
+            nom_du_contact;
+            prenom_du_contact;
+            type_employeur;
+            employeur_specifique;
+            etablissement;
+            adresse;
+            complement_adresse;
+            code_postal;
+            commune;
+            telephone;
+            courriel;
+            code_naf;
+            code_idcc;
+            convention_collective;
+            adhesion_apprenti_régime_spécifique_assurance_chômage;
+            caisse_retraite_complementaire;
+
+    constructor(
+        siret,
+        effectif,
+        nom_du_contact,
+        prenom_du_contact,
+        type_employeur,
+        employeur_specifique,
+        etablissement,
+        adresse,
+        complement_adresse,
+        code_postal,
+        commune,
+        telephone,
+        courriel,
+        code_naf,
+        code_idcc,
+        convention_collective,
+        adhesion_apprenti_régime_spécifique_assurance_chômage,
+        caisse_retraite_complementaire
+        ) {
+        this.siret=siret;
+        this.effectif=effectif;
+        this.nom_du_contact=nom_du_contact;
+        this.prenom_du_contact=prenom_du_contact;
+        this.type_employeur=type_employeur;
+        this.employeur_specifique=employeur_specifique;
+        this.adresse=adresse;
+        this.complement_adresse=complement_adresse;
+        this.code_postal=code_postal;
+        this.commune=commune;
+        this.telephone=telephone;
+        this.courriel=courriel;
+        this.etablissement=etablissement;
+        this.code_naf=code_naf;
+        this.code_idcc=code_idcc;
+        this.convention_collective=convention_collective;
+        this.adhesion_apprenti_régime_spécifique_assurance_chômage=adhesion_apprenti_régime_spécifique_assurance_chômage;
+        this.caisse_retraite_complementaire=caisse_retraite_complementaire;
+        this.identifiantEmployeur=null;
+    }
+
+    modifieIdentifiantEmployeur(identifiantEmployeur){
+        this.identifiantEmployeur=identifiantEmployeur;
+    }
+}
