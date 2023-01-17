@@ -124,6 +124,7 @@ import formulaireMaitre from '@/components/Controler/backOffice/formulaireMaitre
 //import formulaireContrat from "@/components/Controler/backOffice/formulaireContrat.vue";
 import construitURLService from '@/services/construitURL.service.vue';
 import configuration from '@/administration/configuration.vue';
+import connexionAPIService from '@/services/connexionAPI.service.vue';
 
 export default {
   name: 'tableauFactureNonSoldees',
@@ -181,10 +182,10 @@ export default {
       );
       let reponseBDD = await connexionAPIService.methods.requete(URL, json);
       if (reponseBDD.code_reponse !== 0) {
-        alert('erreur : ' + reponseBDD.Error_info);
+        alert('erreur insereObjetDansBdd : ' + reponseBDD.Error_info);
       } else {
         let objet = JSON.parse(json);
-        objet._id = reponseBDD.extra_info.identifiantOpco;
+        objet._id = reponseBDD.extra_info;
         this.$emit('insertionObjetOk', nomCollection, JSON.stringify(objet));
         console.log(
           'Objet ajouté en base de données, collection : ' +

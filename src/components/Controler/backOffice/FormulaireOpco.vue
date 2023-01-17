@@ -102,7 +102,7 @@ import BoutonInsertionBdd from '@/components/Controler/elementsHTML/bouton/Bouto
 
 import creationJSONService from '@/services/creationJSON.service.vue';
 import configuration from '@/administration/configuration.vue';
-import connexionAPIService from '@/services/connexionAPI.service.vue';
+
 
 export default {
   name: 'FormulaireOpco',
@@ -122,9 +122,6 @@ export default {
       apiurl_recete: '',
       objet: Object,
     };
-  },
-  emits: {
-    objet() {},
   },
   methods: {
     fabriqueObjet(param) {

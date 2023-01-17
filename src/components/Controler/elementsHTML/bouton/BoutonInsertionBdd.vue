@@ -1,9 +1,8 @@
 <template>
   <BoutonBase
     :intituleBouton="intitule"
-    :param="param"
+    :paramBouton="param"
     :evenementBouton="evenement"
-    @insertion-bdd="$emit(evenement, param)"
   ></BoutonBase>
 </template>
 

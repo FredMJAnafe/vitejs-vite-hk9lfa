@@ -1,5 +1,5 @@
 <template>
-  <button v-if="intitule" @click="etat=!etat;$emit(this.evenement, param)">
+  <button v-if="intitule" @click="$emit(this.evenement, param)">
     <font-awesome-icon
       v-if="type == 'ouvrirformulaire'"
       class="fontIcone"
@@ -27,7 +27,7 @@ export default {
   props: {
     intituleBouton: String,
     evenementBouton: String,
-    param: String,
+    paramBouton: String,
     type: String,
     etatBouton:Boolean
   },
@@ -41,8 +41,7 @@ export default {
       btnClass: this.btnClass || 'boutonFlashy',
       intitule: this.intituleBouton || '',
       evenement: this.evenementBouton || 'boutonClique',
-      param: this.param || this.intituleBouton,
-      etatBouton: this.etatBouton
+      param: this.paramBouton || this.intituleBouton
     };
   },
 };
