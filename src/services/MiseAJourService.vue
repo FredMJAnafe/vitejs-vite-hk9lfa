@@ -16,7 +16,7 @@ import LocalBddService from '@/services/LocalBddService.vue';
 export default {
   name: 'MiseAJourService',
   props: {
-  }
+  },
   data() {
     return {
       etat:0,

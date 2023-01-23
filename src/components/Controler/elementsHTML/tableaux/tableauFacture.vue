@@ -62,7 +62,7 @@
         <td>
           <select>
             <option>Choisir</option>
-            <option v-for="objet in opcos">{{objet.nom}}</option>
+            <option v-for="objet in opcos">{{ objet.nom }}</option>
           </select>
           <BoutonBase
             class="BtnAfficheFormulaire"
@@ -119,7 +119,7 @@
 </template>
 
 <script>
-import MiseAJourService from '@/services/MiseAJourService.vue'
+import MiseAJourService from '@/services/MiseAJourService.vue';
 import BoutonBase from '@/components/Controler/elementsHTML/bouton/BoutonBase.vue';
 import elementContratTableauFacturier from '@/components/Controler/backOffice/elementContratTableauFacturier.vue';
 import FormulaireApprenti from '@/components/Controler/backOffice/FormulaireApprenti.vue';
@@ -143,22 +143,24 @@ export default {
     return {
       typeBtnAfficherFormulaire: 'ouvrirformulaire',
       etatFormulaire: '',
-      items:[],
-      nomCollectionPrincipale:'dossier',
-      opcos:[]
+      items: [],
+      nomCollectionPrincipale: 'dossier',
+      opcos: [],
     };
   },
-  computed:{
+  computed: {
+    opcos: function () {
+      return this.opcos || [];
+    },
+  },
+  methods: {
     miseAJour(nomCollection, liste) {
-      if(nomCollection != this.nomCollectionPrincipale) {
+      if (nomCollection != this.nomCollectionPrincipale) {
         this[nomCollection + 's'] = liste;
-      }
-      else {
+      } else {
         this.items = liste;
       }
     },
-  }
-  methods: {    
     changeEtatBoutonFormulaire(etat) {
       if (this.etatFormulaire == etat) {
         this.etatFormulaire = '';
@@ -218,7 +220,7 @@ export default {
         .children) {
         valeur.lastChild.value = '';
       }
-    }
+    },
   },
 };
 </script>
