@@ -1,32 +1,31 @@
 <script>
-
 export default {
-  name: "connexionAPI.service",
-  methods:{
-    async requete(url, json ){
+  name: 'connexionAPI.service',
+  methods: {
+    async requete(url, objJSON) {
       let reponse;
-      if (json===""){
-        reponse= await fetch(url,{
+      if (!objJSON) {
+        reponse = await fetch(url, {
           method: 'POST',
-          headers:{
-            'Content-Type':'application/x-www-form-urlencoded'
-          }
-        });
-      }else{
-        reponse= await fetch(url,{
-          method: 'POST',
-          headers:{
-            'Content-Type':'application/x-www-form-urlencoded'
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
           },
-          body: "json="+json
+        });
+      } else {
+        reponse = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: 'json=' + JSON.stringify(objJSON),
         });
       }
 
-      if (!reponse.ok){
-        throw new Error(`HTTP erreur. status : ${reponse.status}`)
+      if (!reponse.ok) {
+        throw new Error(`HTTP erreur. status : ${reponse.status}`);
       }
       return reponse.json();
-    }
-  }
-}
+    },
+  },
+};
 </script>

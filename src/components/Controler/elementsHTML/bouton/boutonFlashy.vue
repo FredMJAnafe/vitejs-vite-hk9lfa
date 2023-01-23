@@ -22,7 +22,7 @@ export default {
       const password= this.password;
       const URL= construitURLService.methods.construitURLConnectionBack("", configuration.data().urlPossibles.connexion);
       console.log(URL);
-      const json='{"mail":'+'"'+mail+'"'+',"password":'+'"'+password+'"'+'}';
+      const json = {mail:mail,password:password};
 
       let reponse = await connexionAPIService.methods.requete(URL, json);
       console.log(reponse.code_reponse);

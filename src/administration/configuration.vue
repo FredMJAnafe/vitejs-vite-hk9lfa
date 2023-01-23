@@ -46,6 +46,7 @@ const COLLECTIONS = {
   utilisateur: 'utilisateur',
   opco: 'opco',
   apprenti: 'apprenti',
+  dossier: 'dossier',
 };
 const NOM_BDDLoc = 'BddLocale_' + NOM_ENTREPRISE;
 const VERSION_BDDLoc = '1.0';

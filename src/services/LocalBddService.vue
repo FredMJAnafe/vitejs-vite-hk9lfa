@@ -27,7 +27,7 @@ export default {
           };*/
       });
     },
-    async update(nomCollection, liste) {
+    async miseAJour(nomCollection, liste) {
       //TODO
     },
   },

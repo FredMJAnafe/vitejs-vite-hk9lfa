@@ -138,6 +138,7 @@ export default {
     FormulaireOpco,
     FormulaireApprenti,
     elementContratTableauFacturier,
+    MiseAJourService,
   },
   data() {
     return {
@@ -146,13 +147,16 @@ export default {
       items: [],
       nomCollectionPrincipale: 'dossier',
       opcos: [],
+      apprentis: [],
+      employeurs: [],
+      dossiers: [],
     };
   },
-  computed: {
+  /*computed: {
     opcos: function () {
       return this.opcos || [];
     },
-  },
+  },*/
   methods: {
     miseAJour(nomCollection, liste) {
       if (nomCollection != this.nomCollectionPrincipale) {
@@ -204,14 +208,13 @@ export default {
       if (reponseBDD.code_reponse !== 0) {
         alert('erreur insereObjetDansBdd : ' + reponseBDD.Error_info);
       } else {
-        let objet = JSON.parse(json);
-        objet._id = reponseBDD.extra_info;
-        this.$emit('insertionObjetOk', nomCollection, JSON.stringify(objet));
+        json._id = reponseBDD.extra_info;
+        this.$emit('insertionObjetOk', nomCollection, json);
         console.log(
           'Objet ajouté en base de données, collection : ' +
             nomCollection +
             ', _id:' +
-            objet._id
+            json._id
         );
       }
     },

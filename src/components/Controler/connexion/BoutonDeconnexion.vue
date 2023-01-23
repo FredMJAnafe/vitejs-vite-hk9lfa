@@ -20,7 +20,7 @@ export default {
         configuration.data().urlPossibles.deconnexion
       );
       console.log(URL);
-      const json = '{"mail":' + '"' + mail + '"}';
+      const json = { mail: mail };
 
       let reponse = await connexionAPIService.methods.requete(URL, json);
       console.log(reponse.code_reponse);

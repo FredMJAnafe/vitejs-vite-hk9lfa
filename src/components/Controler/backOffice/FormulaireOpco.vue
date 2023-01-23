@@ -103,7 +103,6 @@ import BoutonInsertionBdd from '@/components/Controler/elementsHTML/bouton/Bouto
 import creationJSONService from '@/services/creationJSON.service.vue';
 import configuration from '@/administration/configuration.vue';
 
-
 export default {
   name: 'FormulaireOpco',
   components: {
@@ -116,7 +115,7 @@ export default {
       afficheaide: false,
       nom_opco: '',
       apikey_recete: '',
-      cliendid_recete: '',
+      clientid_recete: '',
       clientsecret_recete: '',
       tokenurl_recete: '',
       apiurl_recete: '',
@@ -131,14 +130,14 @@ export default {
           {
             prod: false,
             apikey: this.apikey_recete,
-            cliendid: this.cliendid_recete,
+            cliendid: this.clientid_recete,
             clientsecret: this.clientsecret_recete,
             tokenurl: this.tokenurl_recete,
             apiurl: this.apiurl_recete,
           },
         ],
       };
-      this.$emit('insertionBdd', param, JSON.stringify(objet));
+      this.$emit('insertionBdd', param, objet);
     },
   },
 };
