@@ -4,6 +4,7 @@ const SERVEUR = {
   IP_SERVEUR: 'api.anafe.fr',
   PORT_SERVEUR: '80',
 };
+const NOM_ENTREPRISE = 'ANAFE';
 
 const API_OPCO = {
   PROTOCOLE_SERVEUR: 'https://',
@@ -38,6 +39,7 @@ const LIEN = {
   supprimer: 'supprime',
   obtenir: 'get',
   connexion: 'connexion',
+  deconnexion: 'deconnexion',
 };
 
 const COLLECTIONS = {
@@ -45,6 +47,8 @@ const COLLECTIONS = {
   opco: 'opco',
   apprenti: 'apprenti',
 };
+const NOM_BDDLoc = 'BddLocale_' + NOM_ENTREPRISE;
+const VERSION_BDDLoc = '1.0';
 
 export default {
   name: 'configuration_front',
@@ -55,6 +59,8 @@ export default {
       collections: COLLECTIONS,
       connexionAPI_OPCO: AJAX.ADRESSE_API_OPCO,
       infoOPCO: API_OPCO,
+      nomBddLoc: NOM_BDDLoc,
+      versionBddLoc: VERSION_BDDLoc,
     };
   },
 };

@@ -1,6 +1,6 @@
 <template>
-  <table id="tableaufacture">
-    <thead id="titreTableauFacturerNonSolde">
+  <table id="tablefacturier">
+    <thead id="theadTableauFacturier">
       <tr>
         <th>N°</th>
         <th>Apprenti</th>
@@ -62,6 +62,7 @@
         <td>
           <select>
             <option>Choisir</option>
+            <option v-for="objet in opcos">{{objet.nom}}</option>
           </select>
           <BoutonBase
             class="BtnAfficheFormulaire"
@@ -105,16 +106,20 @@
             /></span>
             <span>Creer un nouveau dossier</span>
           </div>
-          <div id="lignesDuFacturier">
-            <element-contrat-tableau-facturier></element-contrat-tableau-facturier>
-          </div>
         </td>
       </tr>
     </tbody>
+    <tbody id="lignesDuFacturier">
+      <tr v-for="item in items">
+        <td></td>
+      </tr>
+    </tbody>
   </table>
+  <MiseAJourService @ongetliste="miseAJour"></MiseAJourService>
 </template>
 
 <script>
+import MiseAJourService from '@/services/MiseAJourService.vue'
 import BoutonBase from '@/components/Controler/elementsHTML/bouton/BoutonBase.vue';
 import elementContratTableauFacturier from '@/components/Controler/backOffice/elementContratTableauFacturier.vue';
 import FormulaireApprenti from '@/components/Controler/backOffice/FormulaireApprenti.vue';
@@ -138,9 +143,22 @@ export default {
     return {
       typeBtnAfficherFormulaire: 'ouvrirformulaire',
       etatFormulaire: '',
+      items:[],
+      nomCollectionPrincipale:'dossier',
+      opcos:[]
     };
   },
-  methods: {
+  computed:{
+    miseAJour(nomCollection, liste) {
+      if(nomCollection != this.nomCollectionPrincipale) {
+        this[nomCollection + 's'] = liste;
+      }
+      else {
+        this.items = liste;
+      }
+    },
+  }
+  methods: {    
     changeEtatBoutonFormulaire(etat) {
       if (this.etatFormulaire == etat) {
         this.etatFormulaire = '';
@@ -200,7 +218,7 @@ export default {
         .children) {
         valeur.lastChild.value = '';
       }
-    },
+    }
   },
 };
 </script>
