@@ -21,6 +21,7 @@ export default {
       collections: [],
       nbTotalCollections: 0,
       progression: '',
+      infosDistantes: '',
     };
   },
   mounted: function () {
@@ -59,6 +60,9 @@ export default {
           '/' +
           this.nbTotalCollections;
       }
+    },
+    getInfosDistantes(infos) {
+      this.infosDistantes = infos;
     },
   },
 };

@@ -24,7 +24,12 @@ export default {
       if (!reponse.ok) {
         throw new Error(`HTTP erreur. status : ${reponse.status}`);
       }
-      return reponse.json();
+      let r = reponse.json();
+      if (r && r.dist_info) {
+        //this.$emit infos distantes...............
+        console.log(r.dist_info);
+      }
+      return r;
     },
   },
 };
