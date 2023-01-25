@@ -14,12 +14,12 @@
         <th></th>
       </tr>
     </thead>
-    <tbody id="filtresFacturier">
+    <tbody id="tbodyfiltresFacturier">
       <tr>
         <td id="premiereCaseTableauRecherche"></td>
         <td>
           <select>
-            <option>Choisir un apprenti</option>
+            <option>Choisir</option>
           </select>
           <BoutonBase
             class="BtnAfficheFormulaire"
@@ -30,6 +30,7 @@
         </td>
         <td>
           <select>
+            <option>Choisir</option>
             <option>CI</option>
             <option>CDUI</option>
             <option>COM</option>
@@ -48,7 +49,7 @@
         </td>
         <td>
           <select>
-            <option>Test employeur</option>
+            <option>Choisir</option>
           </select>
           <BoutonBase
             class="BtnAfficheFormulaire"
@@ -61,8 +62,8 @@
         <td></td>
         <td>
           <select>
-            <option>Choisir</option>
-            <option v-for="objet in opcos">{{ objet.nom }}</option>
+            <option value="0">Choisir</option>
+            <option v-for="objet in opcos" :value="objet._id.$oid">{{ objet.nom }}</option>
           </select>
           <BoutonBase
             class="BtnAfficheFormulaire"
@@ -111,7 +112,16 @@
     </tbody>
     <tbody id="lignesDuFacturier">
       <tr v-for="item in items">
+        <td>{{item.numeroExterne}}</td>
         <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{item.etat}}</td>
       </tr>
     </tbody>
   </table>
@@ -322,73 +332,20 @@ export default {
 }
 
 /* Valeur height a changer dynamiquement pour englober les formulaires*/
-#filtresFacturier {
-  display: flex;
+#tbodyfiltresFacturier {
   background: var(--mauve-clair);
   height: 4rem;
   box-shadow: 0px 5px 5px -4px;
   transition-property: height;
   transition-duration: 1s;
 }
-
-#premiereCaseTableauRecherche {
-  width: 3%;
-  min-width: 30px;
+#tablefacturier thead tr th,
+#tbodyfiltresFacturier tr td {
+  text-align: center;
 }
-
-#filtresFacturier :nth-child(2) {
-  padding: 0px;
-  width: 18%;
-  min-width: 150px;
-  margin-right: 1px;
+#tbodyfiltresFacturier .fontIcone {
+  margin: 3px;
 }
-
-#filtresFacturier :nth-child(3) {
-  width: 5%;
-  min-width: 60px;
-  margin-right: 1px;
-}
-
-#filtresFacturier :nth-child(4) {
-  width: 18%;
-  min-width: 100px;
-  margin-right: 1px;
-}
-
-#filtresFacturier :nth-child(5) {
-  width: 6%;
-  min-width: 60px;
-  margin-right: 1px;
-}
-
-#filtresFacturier :nth-child(6) {
-  width: 8%;
-  min-width: 70px;
-  margin-right: 1px;
-}
-
-#filtresFacturier :nth-child(7) {
-  width: 8%;
-  min-width: 70px;
-  margin-right: 1px;
-}
-
-#filtresFacturier :nth-child(8) {
-  width: 8%;
-  min-width: 98px;
-  margin-right: 1px;
-}
-
-#filtresFacturier :nth-child(9) {
-  width: 25%;
-  min-width: 150px;
-}
-
-#filtresFacturier :nth-child(10) {
-  width: 15%;
-  min-width: 130px;
-}
-
 .enteteRecherche {
   height: 3.5rem;
   display: flex;
@@ -478,4 +435,16 @@ select {
 .detailApprenti select {
   width: 50%;
 }
+#etatmiseajour {
+  position: fixed;
+  bottom: 3px;
+  right: 3px;
+  background: #80d0f0;
+  color: blue;
+  padding: 2px;
+  font-size: 10px;
+  font-weight: bold;
+  display: block;
+}
+
 </style>
