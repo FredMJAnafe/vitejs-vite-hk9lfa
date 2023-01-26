@@ -51,23 +51,32 @@ export default {
       var aInfog = [];
       if (dist && dist.extra_info) {
         for (var nomOpco in dist.extra_info) {
-          let info = dist.extra_info[nomOpco],
-            ainfo = [];
-          if(info.erreur) {
-            ainfo.push(info.erreur);
+          let infos = dist.extra_info[nomOpco],
+            asInfo = [];
+          if (!Array.isArray(infos)) {
+            infos = [infos];
           }
-          else {
-            if (info.nbinsertions != 0) {
-              ainfo.push(info.nbinsertions + 'i');
-            }
-            if (info.nbmodifications) {
-              ainfo.push(info.nbmodifications + 'm');
-            }
-          }
-          let sinfo = nomOpco + '.' + (info.erreur? '' : info.collection);
-          sinfo += (ainfo.length)?  '(' + ainfo.join(',') + ')' : ':ok';
+          for (let info of infos) {
+            let ainfo = [],
+              sinfo;
 
-          aInfog.push( sinfo );
+            if (info.erreur) {
+              ainfo.push(info.erreur);
+            } else {
+              if (info.nbinsertions != 0) {
+                ainfo.push(info.nbinsertions + 'i');
+              }
+              if (info.nbmodifications) {
+                ainfo.push(info.nbmodifications + 'm');
+              }
+            }
+            sinfo = info.collection;
+            sinfo += '(' + (ainfo.length ? ainfo.join(',') : 'ok') + ')';
+
+            asInfo.push(sinfo);
+          }
+          let sinfo = nomOpco + ':' + asInfo.join('.');
+          aInfog.push(sinfo);
         }
       }
       return aInfog.length ? '-Distant:' + aInfog.join(' / ') : '';

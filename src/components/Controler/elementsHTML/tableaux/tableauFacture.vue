@@ -122,7 +122,11 @@
         <td>{{ item.opco }}</td>
         <td>{{ resteAPayer(item.echeances) }}</td>
         <td>
-          <span :class="'echeance echeance-'+etatEcheance(echeance)" v-for="echeance in item.echeances">{{ resteAPayer(echeance) }}</span>
+          <span
+            :class="'echeance echeance-' + etatEcheance(echeance)"
+            v-for="echeance in item.echeances"
+            >{{ resteAPayer(echeance) }}</span
+          >
         </td>
         <td></td>
         <td>{{ item.cerfa.etat }}</td>
@@ -145,10 +149,10 @@ import construitURLService from '@/services/construitURL.service.vue';
 import configuration from '@/administration/configuration.vue';
 import connexionAPIService from '@/services/connexionAPI.service.vue';
 
-const ECHEANCE_ETAT_INIT = "initial";
-const ECHEANCE_ETAT_REGLE = "regle";
-const ECHEANCE_ETAT_RETARD = "retard";
-const ECHEANCE_ETAT_ENCOURS = "en_cours";
+const ECHEANCE_ETAT_INIT = 'initial';
+const ECHEANCE_ETAT_REGLE = 'regle';
+const ECHEANCE_ETAT_RETARD = 'retard';
+const ECHEANCE_ETAT_ENCOURS = 'en_cours';
 const ECHEANCE_DELAI_JOURS_PAIEMENT = 3;
 
 export default {
@@ -180,15 +184,18 @@ export default {
   methods: {
     etatEcheance(echeance) {
       let r = this.resteAPayer(echeance),
-          d = echeance.dateOuverture,
-          dt = new Date(d);
-      if(r==0) {
+        d = echeance.dateOuverture,
+        dt = new Date(d);
+      if (r == 0) {
         return ECHEANCE_ETAT_REGLE;
       }
-      if(dt.getTime()>Date.now) {
+      if (dt.getTime() > Date.now) {
         return ECHEANCE_ETAT_INIT;
       }
-      if( dt.getTime() + ECHEANCE_DELAI_JOURS_PAIEMENT*86400000 < Date.now() ) {
+      if (
+        dt.getTime() + ECHEANCE_DELAI_JOURS_PAIEMENT * 86400000 <
+        Date.now()
+      ) {
         return ECHEANCE_ETAT_RETARD;
       }
       return ECHEANCE_ETAT_ENCOURS;
@@ -197,7 +204,7 @@ export default {
       if (!echeances) {
         return 0;
       }
-      if(!Array.isArray(echeances)) {
+      if (!Array.isArray(echeances)) {
         echeances = [echeances];
       }
       let r = echeances.reduce(function (a, c) {
@@ -216,12 +223,24 @@ export default {
       if (nomCollection != this.nomCollectionPrincipale) {
         this[nomCollection + 's'] = liste;
       } else {
-        liste.forEach((d)=>{
-          d.echeances.sort((a,b) => {
-            return +(a.dateOuverture > b.dateOuverture) || (+(a.dateOuverture == b.dateOuverture)-1);
-          })
+        liste.forEach((d) => {
+          if (d.echeances) {
+            d.echeances.sort((a, b) => {
+              return (
+                +(a.dateOuverture > b.dateOuverture) ||
+                +(a.dateOuverture == b.dateOuverture) - 1
+              );
+            });
+          }
         });
         this.items = liste;
+        let apprentis = liste.reduce((a,c)=> {
+          if(c.cerfa.apprenti) {
+
+            a.push(c.cerfa.apprenti.prenom + ' ' + c.cerfa.apprenti.nom)
+          }
+          return a;
+        },[])
       }
     },
     changeEtatBoutonFormulaire(etat) {
@@ -480,7 +499,9 @@ select {
   border-radius: 7px;
   box-shadow: 0px 5px 5px -3px;
 }
-
+#lignesDuFacturier tr:nth-child(even) {
+  background:white;
+}
 .detailApprenti select {
   width: 50%;
 }
@@ -496,22 +517,22 @@ select {
   display: block;
 }
 .echeance {
-  display:inline-block;
-  padding:1px 4px;
-  border-radius:6px;
-  background:white;
-  font-size:11px
+  display: inline-block;
+  padding: 1px 4px;
+  border-radius: 6px;
+  background: white;
+  font-size: 11px;
 }
 .echeance-retard {
-  background:red;
-  color:white;
+  background: red;
+  color: white;
 }
 .echeance-regle {
-  background:greenyellow;
-  color:green;
+  background: greenyellow;
+  color: green;
 }
 .echeance-en_cours {
-  background:#eaeaff;
-  color:black;
+  background: #eaeaff;
+  color: black;
 }
 </style>
