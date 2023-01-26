@@ -216,6 +216,11 @@ export default {
       if (nomCollection != this.nomCollectionPrincipale) {
         this[nomCollection + 's'] = liste;
       } else {
+        liste.forEach((d)=>{
+          d.echeances.sort((a,b) => {
+            return +(a.dateOuverture > b.dateOuverture) || (+(a.dateOuverture == b.dateOuverture)-1);
+          })
+        });
         this.items = liste;
       }
     },
@@ -506,7 +511,7 @@ select {
   color:green;
 }
 .echeance-en_cours {
-  background:#87d0f1;
-  color:blue;
+  background:#eaeaff;
+  color:black;
 }
 </style>
