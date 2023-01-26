@@ -63,7 +63,9 @@
         <td>
           <select>
             <option value="0">Choisir</option>
-            <option v-for="objet in opcos" :value="objet._id.$oid">{{ objet.nom }}</option>
+            <option v-for="objet in opcos" :value="objet._id.$oid">
+              {{ objet.nom }}
+            </option>
           </select>
           <BoutonBase
             class="BtnAfficheFormulaire"
@@ -112,16 +114,16 @@
     </tbody>
     <tbody id="lignesDuFacturier">
       <tr v-for="item in items">
-        <td>{{item.numeroExterne}}</td>
+        <td>{{ item.cerfa.numeroExterne }}</td>
+        <td>{{ item.cerfa.apprenti.prenom }} {{ item.cerfa.apprenti.nom }}</td>
+        <td>{{ item.cerfa.formation.intituleQualification }}</td>
+        <td>{{ item.cerfa.employeur.denomination }}</td>
+        <td>{{ formateDate(item.cerfa.contrat.dateDebutContrat) }}</td>
+        <td>{{ item.opco }}</td>
+        <td>{{ resteAPayer(item.echeances) }}</td>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>{{item.etat}}</td>
+        <td>{{ item.cerfa.etat }}</td>
       </tr>
     </tbody>
   </table>
@@ -168,6 +170,22 @@ export default {
     },
   },*/
   methods: {
+    resteAPayer(echeances) {
+      if (!echeances) {
+        return 0;
+      }
+      let r = echeances.reduce(function (a, c) {
+        return (
+          a + parseFloat(c.montantTotal || 0) - parseFloat(c.montantRegle || 0)
+        );
+      }, 0);
+      r = r.toFixed(2);
+      return r;
+    },
+    formateDate(d) {
+      let fd = new Date(d);
+      return fd.toLocaleDateString();
+    },
     miseAJour(nomCollection, liste) {
       if (nomCollection != this.nomCollectionPrincipale) {
         this[nomCollection + 's'] = liste;
@@ -446,5 +464,4 @@ select {
   font-weight: bold;
   display: block;
 }
-
 </style>
