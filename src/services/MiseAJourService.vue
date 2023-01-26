@@ -53,17 +53,21 @@ export default {
         for (var nomOpco in dist.extra_info) {
           let info = dist.extra_info[nomOpco],
             ainfo = [];
-          if (info.nbinsertions != 0) {
-            ainfo.push(info.nbinsertions + 'i');
+          if(info.erreur) {
+            ainfo.push(info.erreur);
           }
-          if (info.nbmodifications) {
-            ainfo.push(info.nbmodifications + 'm');
+          else {
+            if (info.nbinsertions != 0) {
+              ainfo.push(info.nbinsertions + 'i');
+            }
+            if (info.nbmodifications) {
+              ainfo.push(info.nbmodifications + 'm');
+            }
           }
-          if (ainfo.length) {
-            aInfog.push(
-              nomOpco + '.' + info.collection + '(' + ainfo.join(',') + ')'
-            );
-          }
+          let sinfo = nomOpco + '.' + (info.erreur? '' : info.collection);
+          sinfo += (ainfo.length)?  '(' + ainfo.join(',') + ')' : ':ok';
+
+          aInfog.push( sinfo );
         }
       }
       return aInfog.length ? '-Distant:' + aInfog.join(' / ') : '';

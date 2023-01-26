@@ -121,7 +121,9 @@
         <td>{{ formateDate(item.cerfa.contrat.dateDebutContrat) }}</td>
         <td>{{ item.opco }}</td>
         <td>{{ resteAPayer(item.echeances) }}</td>
-        <td></td>
+        <td>
+          <span :class="'echeance echeance-'+etatEcheance(echeance)" v-for="echeance in item.echeances">{{ resteAPayer(echeance) }}</span>
+        </td>
         <td></td>
         <td>{{ item.cerfa.etat }}</td>
       </tr>
@@ -142,6 +144,12 @@ import formulaireMaitre from '@/components/Controler/backOffice/formulaireMaitre
 import construitURLService from '@/services/construitURL.service.vue';
 import configuration from '@/administration/configuration.vue';
 import connexionAPIService from '@/services/connexionAPI.service.vue';
+
+const ECHEANCE_ETAT_INIT = "initial";
+const ECHEANCE_ETAT_REGLE = "regle";
+const ECHEANCE_ETAT_RETARD = "retard";
+const ECHEANCE_ETAT_ENCOURS = "en_cours";
+const ECHEANCE_DELAI_JOURS_PAIEMENT = 3;
 
 export default {
   name: 'tableauFactureNonSoldees',
@@ -170,9 +178,27 @@ export default {
     },
   },*/
   methods: {
+    etatEcheance(echeance) {
+      let r = this.resteAPayer(echeance),
+          d = echeance.dateOuverture,
+          dt = new Date(d);
+      if(r==0) {
+        return ECHEANCE_ETAT_REGLE;
+      }
+      if(dt.getTime()>Date.now) {
+        return ECHEANCE_ETAT_INIT;
+      }
+      if( dt.getTime() + ECHEANCE_DELAI_JOURS_PAIEMENT*86400000 < Date.now() ) {
+        return ECHEANCE_ETAT_RETARD;
+      }
+      return ECHEANCE_ETAT_ENCOURS;
+    },
     resteAPayer(echeances) {
       if (!echeances) {
         return 0;
+      }
+      if(!Array.isArray(echeances)) {
+        echeances = [echeances];
       }
       let r = echeances.reduce(function (a, c) {
         return (
@@ -463,5 +489,24 @@ select {
   font-size: 10px;
   font-weight: bold;
   display: block;
+}
+.echeance {
+  display:inline-block;
+  padding:1px 4px;
+  border-radius:6px;
+  background:white;
+  font-size:11px
+}
+.echeance-retard {
+  background:red;
+  color:white;
+}
+.echeance-regle {
+  background:greenyellow;
+  color:green;
+}
+.echeance-en_cours {
+  background:#87d0f1;
+  color:blue;
 }
 </style>
