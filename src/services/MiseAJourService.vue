@@ -109,7 +109,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style scoped> 
 .etat_0 {
   background: orangered;
 }

@@ -4,12 +4,12 @@
       <tr>
         <th>N°</th>
         <th>Apprenti</th>
-        <th>Section</th>
+        <th>Formation</th>
         <th>Employeur</th>
         <th>Contrat</th>
         <th>OPCO</th>
+        <th>Reste</th>
         <th>Factures</th>
-        <th>Reste à payer</th>
         <th>Etape</th>
         <th></th>
       </tr>
@@ -115,10 +115,27 @@
     <tbody id="lignesDuFacturier">
       <tr v-for="item in items">
         <td>{{ item.cerfa.numeroExterne }}</td>
-        <td>{{ item.cerfa.apprenti.prenom }} {{ item.cerfa.apprenti.nom }}</td>
-        <td>{{ item.cerfa.formation.intituleQualification }}</td>
-        <td>{{ item.cerfa.employeur.denomination }}</td>
-        <td>{{ formateDate(item.cerfa.contrat.dateDebutContrat) }}</td>
+        <td>
+          <span v-if="item.cerfa.apprenti"
+            >{{ item.cerfa.apprenti.prenom }}
+            {{ item.cerfa.apprenti.nom }}</span
+          >
+        </td>
+        <td>
+          <span v-if="item.cerfa.formation"
+            >{{ item.cerfa.formation.intituleQualification }}
+          </span>
+        </td>
+        <td>
+          <span v-if="item.cerfa.employeur">{{
+            item.cerfa.employeur.denomination
+          }}</span>
+        </td>
+        <td>
+          <span v-if="item.cerfa.contrat">{{
+            formateDate(item.cerfa.contrat.dateDebutContrat)
+          }}</span>
+        </td>
         <td>{{ item.opco }}</td>
         <td>{{ resteAPayer(item.echeances) }}</td>
         <td>
@@ -234,13 +251,12 @@ export default {
           }
         });
         this.items = liste;
-        let apprentis = liste.reduce((a,c)=> {
-          if(c.cerfa.apprenti) {
-
-            a.push(c.cerfa.apprenti.prenom + ' ' + c.cerfa.apprenti.nom)
+        let apprentis = liste.reduce((a, c) => {
+          if (c.cerfa.apprenti) {
+            a.push(c.cerfa.apprenti.prenom + ' ' + c.cerfa.apprenti.nom);
           }
           return a;
-        },[])
+        }, []);
       }
     },
     changeEtatBoutonFormulaire(etat) {
@@ -282,19 +298,22 @@ export default {
         nomCollection,
         configuration.data().urlPossibles.ajouter
       );
-      let reponseBDD = await connexionAPIService.methods.requete(URL, json);
-      if (reponseBDD.code_reponse !== 0) {
-        alert('erreur insereObjetDansBdd : ' + reponseBDD.Error_info);
-      } else {
-        json._id = reponseBDD.extra_info;
-        this.$emit('insertionObjetOk', nomCollection, json);
-        console.log(
-          'Objet ajouté en base de données, collection : ' +
-            nomCollection +
-            ', _id:' +
-            json._id
-        );
-      }
+      await connexionAPIService.methods
+        .requete(URL, json)
+        .then((reponseBDD) => {
+          if (reponseBDD.code_reponse !== 0) {
+            alert('erreur insereObjetDansBdd : ' + reponseBDD.Error_info);
+          } else {
+            json._id = reponseBDD.extra_info;
+            this.$emit('insertionObjetOk', nomCollection, json);
+            console.log(
+              'Objet ajouté en base de données, collection : ' +
+                nomCollection +
+                ', _id:' +
+                json._id
+            );
+          }
+        });
     },
     async effacerFormulaire() {
       for (let valeur of document.getElementsByClassName('detailOpco')[0]
@@ -500,7 +519,7 @@ select {
   box-shadow: 0px 5px 5px -3px;
 }
 #lignesDuFacturier tr:nth-child(even) {
-  background:white;
+  background: white;
 }
 .detailApprenti select {
   width: 50%;

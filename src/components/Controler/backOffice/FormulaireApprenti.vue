@@ -56,7 +56,7 @@
           </select>
         </div>
         <div class="inputBoxFacturier">
-          <span class="detailFacturier">Département de naissance</span>
+          <span class="detailFacturier">Dépt de naissance</span>
           <select
             id="departementsNaissanceListe"
             v-on:change="this.getListeCommunesNaissance"
@@ -168,7 +168,7 @@
           />
         </div>
         <div class="inputBoxFacturier">
-          <span class="detailFacturier">Situation avant ce contrat</span>
+          <span class="detailFacturier">Situation précédente</span>
           <select v-model="situation_apprenti">
             <option :value="1" label="Scolaire (hors DIMA)"></option>
             <option :value="2" label="Prépa apprentissage"></option>
@@ -198,7 +198,7 @@
         </div>
         <div class="inputBoxFacturier">
           <span class="detailFacturier"
-            >Dernier dipl&ocirc;me ou titre préparé</span
+            >Dernier dipl&ocirc;me préparé</span
           >
           <select v-model="dernier_diplome">
             <optgroup label="Dipl&ocirc;me ou titre de niveau bac +5 et plus">
@@ -274,7 +274,7 @@
         </div>
         <div class="inputBoxFacturier">
           <span class="detailFacturier"
-            >Intitulé précis du derier dipl&ocirc;me ou titre préparé</span
+            >Intitulé dernier dipl&ocirc;me</span
           >
           <textarea
             type="text"
@@ -286,7 +286,7 @@
           ></textarea>
         </div>
         <div class="inputBoxFacturier">
-          <span class="detailFacturier">Derniere classe / année suivie</span>
+          <span class="detailFacturier">Derniere classe suivie</span>
           <select v-model="derniere_classe_suivie">
             <option
               :value="parseInt('01', 8)"
@@ -331,7 +331,7 @@
           </select>
         </div>
         <div class="inputBoxFacturier">
-          <span class="detailFacturier">Numéro de sécurité sociale</span>
+          <span class="detailFacturier">N° sécurité sociale</span>
           <input
             type="text"
             v-model="numero_de_securite_sociale"
@@ -342,7 +342,7 @@
           />
         </div>
         <div class="inputBoxFacturier">
-          <span class="detailFacturier">Clé numéro de sécurité sociale</span>
+          <span class="detailFacturier">Clé n° sécurité sociale</span>
           <input
             type="text"
             v-model="cle_numero_de_securite_sociale"
@@ -748,4 +748,5 @@ option {
 .formulaire {
   width: 90%;
 }
+
 </style>
