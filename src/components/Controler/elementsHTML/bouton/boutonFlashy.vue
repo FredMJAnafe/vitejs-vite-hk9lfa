@@ -16,7 +16,8 @@ export default {
     intituleBouton:String,
     email:String,
     password:String
-  }, methods : {
+  },
+  methods : {
     async connexion(){
       let mail= this.email;
       const password= this.password;

@@ -1,20 +1,22 @@
 <template>
+<form id="formid">
   <section class="boite">
     <section class="formulaire">
       <h1>Connexion</h1>
       <section class="entreeUtilisateur">
-        <input v-model="email" type="email" name="" id="email" required="required">
+        <input v-model="email" type="email" name="email" id="email" required="required">
         <span>e-mail</span>
         <i></i>
       </section>
       <section class="entreeUtilisateur">
-        <input v-model="password" type="password" name="" id="password" required="required">
+        <input v-model="password" type="password" name="password" id="password" required="required">
         <span>mot de passe</span>
         <i></i>
       </section>
     </section>
     <bouton-flashy intituleBouton="connexion"  v-bind:email="this.email" v-bind:password="this.password"></bouton-flashy>
   </section>
+  </form>
 </template>
 
 <script>

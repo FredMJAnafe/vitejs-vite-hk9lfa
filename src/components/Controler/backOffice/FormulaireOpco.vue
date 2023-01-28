@@ -130,7 +130,7 @@ export default {
           {
             prod: false,
             apikey: this.apikey_recete,
-            cliendid: this.clientid_recete,
+            clientid: this.clientid_recete,
             clientsecret: this.clientsecret_recete,
             tokenurl: this.tokenurl_recete,
             apiurl: this.apiurl_recete,

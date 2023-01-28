@@ -87,7 +87,7 @@
     <tbody>
       <tr>
         <td colspan="10">
-          <form class="formulaire formulaireAjoutFacturier">
+          <form method="post" class="formulaire formulaireAjoutFacturier">
             <FormulaireOpco
               v-if="etatFormulaire == 'opco'"
               v-on:remetEtatInitial="this.remetEtatInitial"
@@ -303,7 +303,8 @@ export default {
         .then((reponseBDD) => {
           if (reponseBDD.code_reponse !== 0) {
             alert('erreur insereObjetDansBdd : ' + reponseBDD.Error_info);
-          } else {
+          }
+          else {
             json._id = reponseBDD.extra_info;
             this.$emit('insertionObjetOk', nomCollection, json);
             console.log(
